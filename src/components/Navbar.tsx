@@ -4,8 +4,8 @@ import { Phone } from "lucide-react";
 const Navbar = () => {
   return (
     <nav className="fixed top-0 left-0 right-0 z-50 border-b border-border/50 bg-background/80 backdrop-blur-xl">
-      <div className="container mx-auto flex items-center justify-between py-3 px-4">
-        <img src={logo} alt="BlueVult Lighting" className="h-12 w-auto" />
+     <div className="flex w-full items-center justify-between py-2 px-6">
+        <img src={logo} alt="BlueVult Lighting" className="h-16 w-auto object-contain" />
         <div className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide uppercase">
           <a href="#services" className="text-muted-foreground hover:text-primary transition-colors">Services</a>
           <a href="#about" className="text-muted-foreground hover:text-primary transition-colors">About</a>

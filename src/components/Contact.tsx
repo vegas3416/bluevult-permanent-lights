@@ -13,13 +13,13 @@ const Contact = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-8 mb-12">
-          <a href="tel:+1234567890" className="flex items-center gap-3 text-foreground hover:text-primary transition-colors">
+          <a href="tel:+5124611926" className="flex items-center gap-3 text-foreground hover:text-primary transition-colors">
             <Phone className="h-5 w-5 text-primary" />
-            <span className="font-medium">(123) 456-7890</span>
+            <span className="font-medium">(512) 461-1926</span>
           </a>
           <a href="mailto:info@bluevult.com" className="flex items-center gap-3 text-foreground hover:text-primary transition-colors">
             <Mail className="h-5 w-5 text-primary" />
-            <span className="font-medium">info@bluevult.com</span>
+            <span className="font-medium">info@bluevultlighting.com</span>
           </a>
           <div className="flex items-center gap-3 text-muted-foreground">
             <MapPin className="h-5 w-5 text-primary" />
@@ -28,7 +28,7 @@ const Contact = () => {
         </div>
 
         <a
-          href="tel:+1234567890"
+          href="tel:+5124611926"
           className="inline-block rounded-md bg-primary px-10 py-4 text-lg font-semibold text-primary-foreground glow-blue transition-all hover:glow-blue-lg"
         >
           Call Now for a Free Estimate

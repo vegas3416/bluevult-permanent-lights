@@ -1,20 +1,35 @@
 import heroImg from "@/assets/hero-lighting.jpg";
+import logo from "@/assets/bluevult-logo.png";
 
 const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
       {/* Background image */}
+
+      
       <div className="absolute inset-0">
         <img src={heroImg} alt="Permanent home lighting" className="h-full w-full object-cover" />
         <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
       </div>
 
+      
+
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center">
-        <p className="mb-4 text-sm font-semibold uppercase tracking-[0.3em] text-primary animate-glow-pulse">
+      <div className="relative z-10 container mx-auto px-6 text-center">
+
+      <div className="flex justify-center">
+  <img
+    src={logo}
+    alt="BlueVult Lighting"
+    className="w-[360px] md:w-[420px] lg:w-[540px] object-contain opacity-90"
+  />
+</div>
+
+
+<p className="-mt-2 mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-primary">
           Permanent Lighting Solutions
         </p>
-        <h1 className="text-5xl sm:text-7xl lg:text-8xl font-display leading-none mb-6">
+        <h1 className="text-5xl sm:text-7xl lg:text-8xl font-display leading-none mb-5">
           <span className="text-gradient-silver">Illuminate Your</span>
           <br />
           <span className="text-gradient-blue">Home Forever</span>
@@ -37,6 +52,8 @@ const Hero = () => {
             Our Services
           </a>
         </div>
+        {/* Logo under CTA */}
+
       </div>
     </section>
   );
