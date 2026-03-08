@@ -2,6 +2,4 @@
 deployment:
   tasks:
     - export DEPLOYPATH=/home/bluevult/public_html/
-    - /usr/bin/npm install
-    - /usr/bin/npm run build
     - /bin/cp -R dist/* $DEPLOYPATH
