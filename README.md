@@ -64,6 +64,52 @@ This project is built with:
 
 Simply open [Lovable](https://lovable.dev/projects/REPLACE_WITH_PROJECT_ID) and click on Share -> Publish.
 
+## SEO, contact form and deployment notes (updates added)
+
+Quick notes about recent improvements and how to configure them locally or in production:
+
+- Head management: this project now uses `react-helmet-async` for per-page titles and meta tags. Install it locally after pulling:
+
+```bash
+npm install react-helmet-async
+```
+
+- Contact form: the contact form can POST to Formspree if you set an environment variable `VITE_FORMSPREE_ID` in a `.env` file (example: `VITE_FORMSPREE_ID=yourFormId`). If not set, the form still shows a client-side thank-you state.
+
+- Contact form: the contact form can POST to Formspree if you set an environment variable `VITE_FORMSPREE_ID` in a `.env` file (example: `VITE_FORMSPREE_ID=yourFormId`).
+- Alternatively, there's a Netlify serverless function that will send an SMS to notify you when a quote request is submitted. To enable it, set these environment variables in Netlify (or a `.env` for local `netlify dev`):
+
+
+- Form submit options (free):
+	- FormSubmit (formsubmit.co) — free and zero-backend option: set `VITE_FORMSUBMIT_EMAIL=you@yourdomain.com` in `.env`. The site will POST directly to FormSubmit which forwards to your email. This is the easiest free option and recommended if you want email notifications immediately without serverless.
+	- To also get an SMS for each lead without paid services, you can use an email-to-SMS gateway address for your carrier. Set `VITE_SMS_GATEWAY` to the carrier gateway address for your phone (e.g. `15124611926@txt.att.net` or `15124611926@vtext.com`) and the site will POST a short message to that address via FormSubmit as well.
+	- Formspree — another form service; set `VITE_FORMSPREE_ID` to your Formspree form id and Formspree will handle forwarding/submissions.
+
+Notes and caveats about email-to-SMS gateways:
+	- Email-to-SMS gateways are carrier-specific and rely on the mobile carrier converting the incoming email to SMS for the target phone number. Delivery is not guaranteed and long messages may be truncated.
+	- Common gateway domains (examples):
+		- AT&T: number@txt.att.net
+		- Verizon: number@vtext.com
+		- T-Mobile: number@tmomail.net
+		- Sprint (now part of T-Mobile): number@messaging.sprintpcs.com
+	- Replace `number` with your 10-digit phone number (no separators), e.g. `15124611926@vtext.com`.
+	- Some gateways may strip links or block messages; test thoroughly.
+
+- Alternatively, there's a Netlify serverless function that will send an SMS to notify you when a quote request is submitted. To enable it, set these environment variables in Netlify (or a `.env` for local `netlify dev`):
+
+```
+TWILIO_ACCOUNT_SID=ACxxxxxxxxxxxxxxxxxxxx
+TWILIO_AUTH_TOKEN=your_auth_token
+TWILIO_FROM=+1XXXXXXXXXX   # your Twilio phone number
+NOTIFY_TO=+1YYYYYYYYYY     # the phone number you want to receive SMS notifications
+```
+
+The serverless endpoint is available at `/.netlify/functions/contact`. If the endpoint is not configured, the form will fall back to the client-side thank-you UI so users are not blocked.
+
+- Sitemap and robots: a `public/sitemap.xml` and `public/robots.txt` were added; update the `https://example.com` URLs to your production domain before publishing.
+
+If you'd like, I can wire up a serverless endpoint (Netlify/Vercel) instead of Formspree — tell me which provider you plan to use.
+
 ## Can I connect a custom domain to my Lovable project?
 
 Yes, you can!

@@ -40,7 +40,7 @@ const Hero = () => {
         </p>
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
           <a
-            href="#contact"
+            href="/contact"
             className="rounded-md bg-primary px-8 py-3 text-base font-semibold text-primary-foreground glow-blue transition-all hover:glow-blue-lg"
           >
             Free Estimate
