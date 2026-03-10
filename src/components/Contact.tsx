@@ -1,41 +1,61 @@
-import { Phone, Mail, MapPin } from "lucide-react";
+import heroImg from "@/assets/hero-lighting.jpg";
+import logo from "@/assets/bluevult-logo.png";
+import { Link } from "react-router-dom";
 
-const Contact = () => {
+const Hero = () => {
   return (
-    <section id="contact" className="py-24 bg-card border-t border-border">
-      <div className="container mx-auto px-4 text-center">
-        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary mb-3">Get Started</p>
-        <h2 className="text-4xl sm:text-5xl font-display text-gradient-silver mb-6">
-          Ready to Transform Your Property?
-        </h2>
-        <p className="mx-auto max-w-lg text-muted-foreground mb-12">
-          Contact us today for a free consultation and estimate. We'll bring your vision to life.
-        </p>
+    <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
+      <div className="absolute inset-0">
+        <img
+          src={heroImg}
+          alt="Permanent home lighting"
+          className="h-full w-full object-cover"
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-background/80 via-background/60 to-background" />
+      </div>
 
-        <div className="flex flex-col sm:flex-row items-center justify-center gap-8 mb-12">
-          <a href="tel:+5124611926" className="flex items-center gap-3 text-foreground hover:text-primary transition-colors">
-            <Phone className="h-5 w-5 text-primary" />
-            <span className="font-medium">(512) 461-1926</span>
-          </a>
-          <a href="mailto:info@bluevult.com" className="flex items-center gap-3 text-foreground hover:text-primary transition-colors">
-            <Mail className="h-5 w-5 text-primary" />
-            <span className="font-medium">info@bluevultlighting.com</span>
-          </a>
-          <div className="flex items-center gap-3 text-muted-foreground">
-            <MapPin className="h-5 w-5 text-primary" />
-            <span className="font-medium">Serving Your Area</span>
-          </div>
+      <div className="relative z-10 container mx-auto px-6 text-center">
+        <div className="flex justify-center">
+          <img
+            src={logo}
+            alt="BlueVult Lighting"
+            className="w-[360px] md:w-[420px] lg:w-[540px] object-contain opacity-90"
+          />
         </div>
 
-        <a
-          href="tel:+5124611926"
-          className="inline-block rounded-md bg-primary px-10 py-4 text-lg font-semibold text-primary-foreground glow-blue transition-all hover:glow-blue-lg"
-        >
-          Call Now for a Free Estimate
-        </a>
+        <p className="-mt-2 mb-3 text-sm font-semibold uppercase tracking-[0.3em] text-primary">
+          Permanent Lighting Solutions
+        </p>
+
+        <h1 className="text-5xl sm:text-7xl lg:text-8xl font-display leading-none mb-5">
+          <span className="text-gradient-silver">Illuminate Your</span>
+          <br />
+          <span className="text-gradient-blue">Home Forever</span>
+        </h1>
+
+        <p className="mx-auto max-w-xl text-lg text-muted-foreground mb-10">
+          Professional permanent lighting, fencing, artificial turf, and landscape services —
+          designed to transform your property year-round.
+        </p>
+
+        <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+          <Link
+            to="/contact"
+            className="rounded-md bg-primary px-8 py-3 text-base font-semibold text-primary-foreground glow-blue transition-all hover:glow-blue-lg"
+          >
+            Free Estimate
+          </Link>
+
+          <a
+            href="#services"
+            className="rounded-md border border-border px-8 py-3 text-base font-semibold text-foreground transition-colors hover:bg-secondary"
+          >
+            Our Services
+          </a>
+        </div>
       </div>
     </section>
   );
 };
 
-export default Contact;
+export default Hero;
