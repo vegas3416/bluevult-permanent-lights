@@ -22,4 +22,4 @@ jobs:
             rm -rf /home/bluevult/public_html/assets
             rm -f /home/bluevult/public_html/index.html
             rm -f /home/bluevult/public_html/.htaccess
-            cp -R dist/* /home/bluevult/public_html/
+            cp -R dist/. /home/bluevult/public_html/
