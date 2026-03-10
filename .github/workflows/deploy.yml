@@ -10,26 +10,16 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repo
-        uses: actions/checkout@v4
-
-      - name: Setup Node
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Build site
-        run: npm run build
-
-      - name: Copy build to server via SSH
-        uses: appleboy/scp-action@v0.1.7
+      - name: Deploy on server via SSH
+        uses: appleboy/ssh-action@v1.0.0
         with:
           host: 69.48.181.96
           username: bluevult
           password: ${{ secrets.CPANEL_PASSWORD }}
-          source: "dist/*"
-          target: "/home/bluevult/public_html"
-          strip_components: 1
+          script: |
+            cd /home/bluevult/repositories/bluevult-permanent-lights
+            git pull
+            rm -rf /home/bluevult/public_html/assets
+            rm -f /home/bluevult/public_html/index.html
+            rm -f /home/bluevult/public_html/.htaccess
+            cp -R dist/* /home/bluevult/public_html/
