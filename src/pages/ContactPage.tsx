@@ -6,6 +6,7 @@ import SEO from "@/components/SEO";
 
 const ContactPage = () => {
   const [submitted, setSubmitted] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const FORMSUBMIT_EMAIL =
     import.meta.env.VITE_FORMSUBMIT_EMAIL || "info@bluevultlighting.com";
@@ -16,25 +17,34 @@ const ContactPage = () => {
     const form = e.currentTarget;
     const formData = new FormData(form);
 
+    setIsSubmitting(true);
+
     try {
       const response = await fetch(
-        `https://formsubmit.co/ajax/${FORMSUBMIT_EMAIL}`,
+        `https://formsubmit.co/ajax/${encodeURIComponent(FORMSUBMIT_EMAIL)}`,
         {
           method: "POST",
-          headers: { Accept: "application/json" },
+          headers: {
+            Accept: "application/json",
+          },
           body: formData,
         }
       );
 
-      if (response.ok) {
+      const data = await response.json();
+      console.log("FormSubmit response:", data);
+
+      if (response.ok && data.success === "true") {
         setSubmitted(true);
         form.reset();
       } else {
-        alert("There was a problem sending the form. Please try again.");
+        alert(data.message || "There was a problem sending the form. Please try again.");
       }
     } catch (error) {
-      console.error(error);
-      alert("Submission failed.");
+      console.error("Form submission failed:", error);
+      alert("Submission failed. Please try again.");
+    } finally {
+      setIsSubmitting(false);
     }
   }
 
@@ -49,7 +59,6 @@ const ContactPage = () => {
 
       <main className="container mx-auto px-6 py-24">
         <section className="max-w-3xl mx-auto text-center">
-
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary mb-3">
             Get Started
           </p>
@@ -62,10 +71,7 @@ const ContactPage = () => {
             Reach out for a free consultation and estimate.
           </p>
 
-          {/* Contact Info */}
-
           <div className="mb-10 flex flex-col sm:flex-row items-center justify-center gap-6">
-
             <a
               href="tel:+15124611926"
               className="flex items-center gap-3 hover:text-primary"
@@ -86,19 +92,18 @@ const ContactPage = () => {
               <MapPin className="h-5 w-5 text-primary" />
               <span>Serving Central Texas</span>
             </div>
-
           </div>
 
-          {/* FORM */}
-
           {!submitted ? (
-
             <form
               onSubmit={handleSubmit}
               className="mx-auto max-w-xl text-left space-y-4"
             >
-
-              <input type="hidden" name="_subject" value="New BlueVult Quote Request" />
+              <input
+                type="hidden"
+                name="_subject"
+                value="New BlueVult Quote Request"
+              />
               <input type="hidden" name="_captcha" value="false" />
               <input type="hidden" name="_template" value="table" />
 
@@ -164,15 +169,13 @@ const ContactPage = () => {
 
               <button
                 type="submit"
-                className="w-full bg-primary text-primary-foreground font-semibold py-3 rounded-md"
+                disabled={isSubmitting}
+                className="w-full bg-primary text-primary-foreground font-semibold py-3 rounded-md disabled:opacity-70"
               >
-                Request Quote
+                {isSubmitting ? "Sending..." : "Request Quote"}
               </button>
-
             </form>
-
           ) : (
-
             <div className="rounded-md border p-8 bg-card">
               <h3 className="text-xl font-semibold mb-2">
                 Thanks — we'll be in touch
@@ -181,14 +184,11 @@ const ContactPage = () => {
                 Your message was sent successfully. We'll contact you shortly.
               </p>
             </div>
-
           )}
-
         </section>
       </main>
 
       <Footer />
-
     </div>
   );
 };
