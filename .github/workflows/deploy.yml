@@ -1,0 +1,22 @@
+name: Deploy to cPanel
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: SSH deploy
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: YOUR_SERVER_IP
+          username: bluevult
+          password: ${{ secrets.CPANEL_PASSWORD }}
+          script: |
+            cd /home/bluevult/repositories/bluevult-permanent-lights
+            git pull
+            cp -R dist/* /home/bluevult/public_html/
