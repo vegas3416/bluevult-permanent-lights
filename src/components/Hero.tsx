@@ -1,5 +1,6 @@
 import heroImg from "@/assets/hero-lighting.jpg";
 import logo from "@/assets/bluevult-logo.png";
+import { Link } from "react-router-dom";
 
 const Hero = () => {
   return (
@@ -38,12 +39,12 @@ const Hero = () => {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <a
-            href="/contact"
+          <Link
+            to="/contact"
             className="rounded-md bg-primary px-8 py-3 text-base font-semibold text-primary-foreground glow-blue transition-all hover:glow-blue-lg"
           >
             Free Estimate
-          </a>
+          </Link>
 
           <a
             href="#services"
