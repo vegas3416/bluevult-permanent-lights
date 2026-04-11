@@ -8,7 +8,16 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
-dist
+# Ship `dist/` for static hosting, but only allowlisted paths (Vite hashed bundles live under dist/assets/).
+dist/*
+!dist/index.html
+!dist/.htaccess
+!dist/favicon.ico
+!dist/placeholder.svg
+!dist/robots.txt
+!dist/sitemap.xml
+!dist/assets/
+!dist/assets/**
 dist-ssr
 *.local
 
