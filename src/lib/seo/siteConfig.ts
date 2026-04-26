@@ -1,5 +1,8 @@
 export const SITE_URL = "https://bluevultlighting.com";
 
+/** Default Open Graph / Twitter preview image (absolute URL). */
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
+
 export const BUSINESS_NAME = "BlueVult Lighting";
 export const BUSINESS_PHONE = "+1-512-461-1926";
 export const BUSINESS_EMAIL = "info@bluevultlighting.com";

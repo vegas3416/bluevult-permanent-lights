@@ -8,11 +8,15 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+.env
+*.code-workspace
 # Ship `dist/` for static hosting, but only allowlisted paths (Vite hashed bundles live under dist/assets/).
 dist/*
 !dist/index.html
 !dist/.htaccess
 !dist/favicon.ico
+!dist/apple-touch-icon.png
+!dist/og-image.png
 !dist/placeholder.svg
 !dist/robots.txt
 !dist/sitemap.xml

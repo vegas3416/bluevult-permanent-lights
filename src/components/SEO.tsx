@@ -3,6 +3,7 @@ import {
   BUSINESS_NAME,
   BUSINESS_PHONE,
   CENTRAL_TEXAS_CITIES,
+  DEFAULT_OG_IMAGE,
   SITE_URL,
 } from "@/lib/seo/siteConfig";
 
@@ -16,7 +17,7 @@ type SEOProps = {
   schema?: Record<string, unknown> | Array<Record<string, unknown>>;
 };
 
-const defaultImage = "/favicon.ico";
+const defaultImage = DEFAULT_OG_IMAGE;
 
 export default function SEO({
   title,
