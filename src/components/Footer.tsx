@@ -1,7 +1,7 @@
 import logo from "@/assets/bluevult-logo.png";
 import { FACEBOOK_PAGE_URL, GOOGLE_BUSINESS_URL } from "@/lib/seo/siteConfig";
 import { Link } from "react-router-dom";
-import { ExternalLink } from "lucide-react";
+import { ExternalLink, Facebook } from "lucide-react";
 
 const Footer = () => {
   return (
@@ -27,10 +27,10 @@ const Footer = () => {
               href={FACEBOOK_PAGE_URL}
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-1 text-muted-foreground hover:text-primary transition-colors"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-border text-[#1877F2] transition-colors hover:border-primary hover:bg-primary/5"
+              aria-label="Facebook (opens in a new tab)"
             >
-              Facebook
-              <ExternalLink className="h-3.5 w-3.5 opacity-70" aria-hidden />
+              <Facebook className="h-4 w-4" aria-hidden />
             </a>
           ) : null}
         </div>

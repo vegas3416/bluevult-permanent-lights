@@ -8,7 +8,7 @@ import {
   GOOGLE_BUSINESS_URL,
   GOOGLE_MAPS_EMBED_URL,
 } from "@/lib/seo/siteConfig";
-import { ExternalLink, X } from "lucide-react";
+import { ExternalLink, Facebook, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
 const Gallery = () => {
@@ -24,11 +24,6 @@ const Gallery = () => {
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [lightboxSrc, closeLightbox]);
-
-  const facebookPluginSrc =
-    FACEBOOK_PAGE_URL.length > 0
-      ? `https://www.facebook.com/plugins/page.php?href=${encodeURIComponent(FACEBOOK_PAGE_URL)}&tabs=timeline&width=500&height=700&small_header=false&adapt_container_width=true&hide_cover=false&show_facepile=true`
-      : null;
 
   return (
     <div className="min-h-screen bg-background">
@@ -50,7 +45,7 @@ const Gallery = () => {
         </section>
 
         <section className="mx-auto mt-12 max-w-4xl">
-          <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:flex-wrap sm:justify-center">
+          <div className="flex flex-col items-center justify-center gap-4 sm:flex-row sm:flex-wrap">
             {GOOGLE_BUSINESS_URL ? (
               <a
                 href={GOOGLE_BUSINESS_URL}
@@ -67,10 +62,10 @@ const Gallery = () => {
                 href={FACEBOOK_PAGE_URL}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center justify-center gap-2 rounded-md border border-border bg-card px-5 py-3 text-sm font-semibold transition-colors hover:border-primary hover:text-primary"
+                className="inline-flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card text-[#1877F2] transition-colors hover:border-primary hover:bg-primary/5"
+                aria-label="BlueVult Lighting on Facebook (opens in a new tab)"
               >
-                Facebook page
-                <ExternalLink className="h-4 w-4 opacity-70" aria-hidden />
+                <Facebook className="h-6 w-6" aria-hidden />
               </a>
             ) : null}
           </div>
@@ -92,22 +87,6 @@ const Gallery = () => {
                 className="aspect-video w-full min-h-[280px] border-0"
                 loading="lazy"
                 referrerPolicy="no-referrer-when-downgrade"
-              />
-            </div>
-          </section>
-        ) : null}
-
-        {facebookPluginSrc ? (
-          <section className="mx-auto mt-14 max-w-xl">
-            <h2 className="mb-3 text-center text-xl font-semibold">Updates from Facebook</h2>
-            <div className="overflow-hidden rounded-xl border border-border bg-card">
-              <iframe
-                title="BlueVult Lighting Facebook"
-                src={facebookPluginSrc}
-                className="h-[min(700px,70vh)] w-full border-0"
-                loading="lazy"
-                scrolling="no"
-                allow="encrypted-media"
               />
             </div>
           </section>
@@ -135,9 +114,9 @@ const Gallery = () => {
             ))}
           </div>
           <p className="mt-6 text-center text-sm text-muted-foreground">
-            Pulling every Facebook photo into this site would require Meta API access and a server—we keep
-            this gallery curated for speed and reliability, and point visitors to your live social pages
-            for the full feed.
+            Facebook does not allow reliably copying a Page’s photo feed into a third-party site without
+            Meta’s official API and server-side setup. This grid uses images we host; use the Facebook icon
+            above for the latest posts and albums on your Page.
           </p>
         </section>
 
