@@ -1,18 +1,74 @@
-import { useCallback, useEffect, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import SEO from "@/components/SEO";
-import { GALLERY_ITEMS } from "@/lib/gallery/galleryItems";
+import { GALLERY_ITEMS, type GalleryItem } from "@/lib/gallery/galleryItems";
 import {
   FACEBOOK_PAGE_URL,
   GOOGLE_BUSINESS_URL,
   GOOGLE_MAPS_EMBED_URL,
 } from "@/lib/seo/siteConfig";
+import { isSupabaseConfigured, supabase } from "@/lib/supabase";
+import { useQuery } from "@tanstack/react-query";
 import { ExternalLink, Facebook, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
+type FbGalleryRow = {
+  fb_photo_id: string;
+  image_url: string;
+  width: number | null;
+  height: number | null;
+  created_time: string | null;
+};
+
+function formatPhotoCaption(createdTime: string | null) {
+  if (!createdTime) return "Project photo";
+  try {
+    return new Date(createdTime).toLocaleDateString(undefined, {
+      year: "numeric",
+      month: "short",
+      day: "numeric",
+    });
+  } catch {
+    return "Project photo";
+  }
+}
+
 const Gallery = () => {
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
+
+  const fbQuery = useQuery({
+    queryKey: ["gallery", "facebook"],
+    queryFn: async (): Promise<FbGalleryRow[]> => {
+      if (!supabase) return [];
+      const { data, error } = await supabase
+        .from("gallery_facebook_photos")
+        .select("fb_photo_id,image_url,width,height,created_time")
+        .order("created_time", { ascending: false });
+      if (error) throw error;
+      return (data ?? []) as FbGalleryRow[];
+    },
+    enabled: isSupabaseConfigured && supabase !== null,
+    staleTime: 60_000,
+  });
+
+  type DisplayRow = GalleryItem & { rowKey: string };
+
+  const displayItems: DisplayRow[] = useMemo(() => {
+    const rows = fbQuery.data;
+    if (rows && rows.length > 0) {
+      return rows.map((row) => ({
+        rowKey: row.fb_photo_id,
+        src: row.image_url,
+        alt: `BlueVult project photo ${formatPhotoCaption(row.created_time)}`,
+        caption: formatPhotoCaption(row.created_time),
+      }));
+    }
+    return GALLERY_ITEMS.map((item) => ({ ...item, rowKey: item.src }));
+  }, [fbQuery.data]);
+
+  const usingFacebook = Boolean(fbQuery.data && fbQuery.data.length > 0);
+  const galleryInitialLoad = Boolean(isSupabaseConfigured && fbQuery.isLoading);
 
   const closeLightbox = useCallback(() => setLightboxSrc(null), []);
 
@@ -93,11 +149,22 @@ const Gallery = () => {
         ) : null}
 
         <section className="mx-auto mt-16 max-w-5xl">
-          <h2 className="mb-6 text-center text-2xl font-semibold">Featured photos</h2>
+          <h2 className="mb-6 text-center text-2xl font-semibold">
+            {usingFacebook ? "Recent project photos" : "Featured photos"}
+          </h2>
+          {galleryInitialLoad ? (
+            <p className="text-center text-muted-foreground">Loading gallery…</p>
+          ) : null}
+          {!galleryInitialLoad && fbQuery.isError && isSupabaseConfigured ? (
+            <p className="mb-4 text-center text-sm text-amber-600 dark:text-amber-500">
+              Could not load the live gallery; showing featured images instead.
+            </p>
+          ) : null}
+          {!galleryInitialLoad ? (
           <div className="grid gap-4 sm:grid-cols-2">
-            {GALLERY_ITEMS.map((item) => (
+            {displayItems.map((item) => (
               <button
-                key={item.src}
+                key={item.rowKey}
                 type="button"
                 onClick={() => setLightboxSrc(item.src)}
                 className="group relative overflow-hidden rounded-xl border border-border text-left transition-shadow hover:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-primary"
@@ -106,6 +173,8 @@ const Gallery = () => {
                   src={item.src}
                   alt={item.alt}
                   className="aspect-[4/3] w-full object-cover transition-transform duration-300 group-hover:scale-[1.02]"
+                  loading="lazy"
+                  decoding="async"
                 />
                 <div className="border-t border-border bg-card/95 px-3 py-2 text-sm text-muted-foreground backdrop-blur-sm">
                   {item.caption}
@@ -113,11 +182,14 @@ const Gallery = () => {
               </button>
             ))}
           </div>
+          ) : null}
+          {!galleryInitialLoad ? (
           <p className="mt-6 text-center text-sm text-muted-foreground">
-            Facebook does not allow reliably copying a Page’s photo feed into a third-party site without
-            Meta’s official API and server-side setup. This grid uses images we host; use the Facebook icon
-            above for the latest posts and albums on your Page.
+            {usingFacebook
+              ? "Photos sync from your Facebook Page via the Graph API and Supabase. Run the sync function after new posts, or on a schedule, to refresh this grid."
+              : "To show Facebook Page photos here automatically, run the Supabase migration, deploy the sync-facebook-gallery Edge Function, then trigger it after new posts (see comment in that function)."}
           </p>
+          ) : null}
         </section>
 
         <div className="mx-auto mt-14 flex max-w-xl flex-col gap-3 sm:flex-row sm:justify-center">

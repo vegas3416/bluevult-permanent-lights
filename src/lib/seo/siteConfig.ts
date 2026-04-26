@@ -15,6 +15,9 @@ export const GOOGLE_BUSINESS_URL =
     ? envGoogleBusiness
     : DEFAULT_GOOGLE_BUSINESS_URL;
 
+/** Graph API Page id (from `me/accounts`), used by the Facebook gallery sync Edge Function default. */
+export const FACEBOOK_GRAPH_PAGE_ID = "1061760347010857";
+
 /** Public Facebook page. Env overrides when set. */
 const DEFAULT_FACEBOOK_PAGE_URL = "https://www.facebook.com/profile.php?id=61588490398932";
 const envFacebookPage = (import.meta.env.VITE_FACEBOOK_PAGE_URL as string | undefined)?.trim();
