@@ -13,6 +13,10 @@
     <priority>0.90</priority>
   </url>
   <url>
+    <loc>https://bluevultlighting.com/gallery</loc>
+    <priority>0.85</priority>
+  </url>
+  <url>
     <loc>https://bluevultlighting.com/service-areas/austin/permanent-lighting</loc>
     <priority>0.90</priority>
   </url>

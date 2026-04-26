@@ -1,4 +1,5 @@
 import { Lightbulb, Fence, TreePine, Flower2 } from "lucide-react";
+import { Link } from "react-router-dom";
 import outdoorImg from "@/assets/services-outdoor.jpg";
 
 const services = [
@@ -72,6 +73,15 @@ const Services = () => {
             className="w-full h-64 sm:h-80 object-cover"
           />
         </div>
+
+        <p className="mt-6 text-center">
+          <Link
+            to="/gallery"
+            className="text-sm font-semibold text-primary underline-offset-4 hover:underline"
+          >
+            View project gallery
+          </Link>
+        </p>
       </div>
     </section>
   );

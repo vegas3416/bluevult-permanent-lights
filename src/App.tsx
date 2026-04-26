@@ -11,6 +11,7 @@ import ResetPassword from "./pages/ResetPassword";
 import PermanentLightingService from "./pages/PermanentLightingService";
 import ServiceAreas from "./pages/ServiceAreas";
 import CityPermanentLighting from "./pages/CityPermanentLighting";
+import Gallery from "./pages/Gallery";
 import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
@@ -28,6 +29,7 @@ const App = () => (
             <Route path="/contact" element={<ContactPage />} />
             <Route path="/services/permanent-lighting" element={<PermanentLightingService />} />
             <Route path="/service-areas" element={<ServiceAreas />} />
+            <Route path="/gallery" element={<Gallery />} />
             <Route
               path="/service-areas/:city/permanent-lighting"
               element={<CityPermanentLighting />}

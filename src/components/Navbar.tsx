@@ -12,6 +12,7 @@ const Navbar = () => {
         <div className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide uppercase">
           <Link to="/services/permanent-lighting" className="text-muted-foreground hover:text-primary transition-colors">Permanent Lighting</Link>
           <Link to="/service-areas" className="text-muted-foreground hover:text-primary transition-colors">Service Areas</Link>
+          <Link to="/gallery" className="text-muted-foreground hover:text-primary transition-colors">Gallery</Link>
           <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About</Link>
           <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link>
         </div>

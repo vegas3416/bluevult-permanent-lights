@@ -55,12 +55,18 @@ const PermanentLightingService = () => {
             </div>
           </div>
 
-          <div className="mt-10 flex flex-col gap-3 sm:flex-row">
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap">
             <Link
               to="/contact"
               className="rounded-md bg-primary px-6 py-3 text-center font-semibold text-primary-foreground"
             >
               Request a Free Estimate
+            </Link>
+            <Link
+              to="/gallery"
+              className="rounded-md border border-border px-6 py-3 text-center font-semibold"
+            >
+              Project gallery
             </Link>
             <Link
               to="/service-areas"
