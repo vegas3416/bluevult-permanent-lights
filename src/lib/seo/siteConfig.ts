@@ -7,13 +7,19 @@ export const BUSINESS_NAME = "BlueVult Lighting";
 export const BUSINESS_PHONE = "+1-512-461-1926";
 export const BUSINESS_EMAIL = "info@bluevultlighting.com";
 
-/** Google Business Profile (reviews, photos) — paste full URL from “Share” on Maps / GBP. */
+/** Official Google Business / profile link (share link is fine). Env overrides when set. */
+const DEFAULT_GOOGLE_BUSINESS_URL = "https://share.google/4mnKfvIn68KupN73T";
+const envGoogleBusiness = (import.meta.env.VITE_GOOGLE_BUSINESS_URL as string | undefined)?.trim();
 export const GOOGLE_BUSINESS_URL =
-  (import.meta.env.VITE_GOOGLE_BUSINESS_URL as string | undefined)?.trim() ?? "";
+  envGoogleBusiness && envGoogleBusiness.length > 0
+    ? envGoogleBusiness
+    : DEFAULT_GOOGLE_BUSINESS_URL;
 
-/** Public Facebook page URL (e.g. https://www.facebook.com/yourpage). */
+/** Public Facebook page. Env overrides when set. */
+const DEFAULT_FACEBOOK_PAGE_URL = "https://www.facebook.com/profile.php?id=61588490398932";
+const envFacebookPage = (import.meta.env.VITE_FACEBOOK_PAGE_URL as string | undefined)?.trim();
 export const FACEBOOK_PAGE_URL =
-  (import.meta.env.VITE_FACEBOOK_PAGE_URL as string | undefined)?.trim() ?? "";
+  envFacebookPage && envFacebookPage.length > 0 ? envFacebookPage : DEFAULT_FACEBOOK_PAGE_URL;
 
 /** Optional: Google Maps “Embed a map” iframe `src` URL for the /gallery page. */
 export const GOOGLE_MAPS_EMBED_URL =
