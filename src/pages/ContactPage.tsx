@@ -10,18 +10,27 @@ const ContactPage = () => {
 
   const FORMSUBMIT_EMAIL =
     import.meta.env.VITE_FORMSUBMIT_EMAIL || "info@bluevultlighting.com";
+  const FORMSUBMIT_FORM_ID = import.meta.env.VITE_FORMSUBMIT_FORM_ID?.trim();
+
+  /** Prefer hashed id from FormSubmit activation email; otherwise naked email (requires activation). */
+  const formsubmitAjaxPath = FORMSUBMIT_FORM_ID || FORMSUBMIT_EMAIL;
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
 
     const form = e.currentTarget;
     const formData = new FormData(form);
+    const visitorEmail = String(formData.get("email") || "").trim();
+    if (visitorEmail) {
+      formData.set("_replyto", visitorEmail);
+    }
+    formData.set("_url", window.location.href);
 
     setIsSubmitting(true);
 
     try {
       const response = await fetch(
-        `https://formsubmit.co/ajax/${encodeURIComponent(FORMSUBMIT_EMAIL)}`,
+        `https://formsubmit.co/ajax/${encodeURIComponent(formsubmitAjaxPath)}`,
         {
           method: "POST",
           headers: {
@@ -31,14 +40,32 @@ const ContactPage = () => {
         }
       );
 
-      const data = await response.json();
-      console.log("FormSubmit response:", data);
+      const raw = await response.text();
+      let data: { success?: string | boolean; message?: string } = {};
+      try {
+        data = JSON.parse(raw) as typeof data;
+      } catch {
+        console.error("FormSubmit non-JSON response:", raw.slice(0, 500));
+      }
+      console.log("FormSubmit response:", response.status, data);
 
-      if (response.ok && data.success === "true") {
+      const success =
+        response.ok &&
+        (data.success === "true" || data.success === true);
+
+      if (success) {
         setSubmitted(true);
         form.reset();
       } else {
-        alert(data.message || "There was a problem sending the form. Please try again.");
+        const hint =
+          typeof data.message === "string" && /activate/i.test(data.message)
+            ? " Check the inbox for your destination address (and spam) for FormSubmit’s activation link; submissions are not delivered until you activate."
+            : "";
+        alert(
+          (data.message || `Could not send (${response.status}).`) +
+            hint +
+            " You can also call (512) 461-1926 or email info@bluevultlighting.com."
+        );
       }
     } catch (error) {
       console.error("Form submission failed:", error);
