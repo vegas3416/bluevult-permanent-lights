@@ -8,6 +8,9 @@ import NotFound from "./pages/NotFound";
 import About from "./pages/About";
 import ContactPage from "./pages/ContactPage";
 import ResetPassword from "./pages/ResetPassword";
+import PermanentLightingService from "./pages/PermanentLightingService";
+import ServiceAreas from "./pages/ServiceAreas";
+import CityPermanentLighting from "./pages/CityPermanentLighting";
 import { HelmetProvider } from "react-helmet-async";
 
 const queryClient = new QueryClient();
@@ -23,6 +26,12 @@ const App = () => (
             <Route path="/" element={<Index />} />
             <Route path="/about" element={<About />} />
             <Route path="/contact" element={<ContactPage />} />
+            <Route path="/services/permanent-lighting" element={<PermanentLightingService />} />
+            <Route path="/service-areas" element={<ServiceAreas />} />
+            <Route
+              path="/service-areas/:city/permanent-lighting"
+              element={<CityPermanentLighting />}
+            />
             <Route path="/reset-password" element={<ResetPassword />} />
             {/* ADD ALL CUSTOM ROUTES ABOVE THE CATCH-ALL "*" ROUTE */}
             <Route path="*" element={<NotFound />} />

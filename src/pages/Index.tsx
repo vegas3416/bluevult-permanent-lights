@@ -7,7 +7,11 @@ import SEO from "@/components/SEO";
 const Index = () => {
   return (
     <div className="min-h-screen bg-background">
-      <SEO title="BlueVult Lighting | Permanent Lighting, Fencing & Landscape" description="Professional permanent LED lighting, fencing, artificial turf, and landscape services by BlueVult." />
+      <SEO
+        title="Permanent Lighting in Central Texas | BlueVult Lighting"
+        description="Permanent outdoor LED lighting installation in Central Texas. BlueVult delivers clean roofline lighting systems with year-round app control."
+        path="/"
+      />
       <Navbar />
       <Hero />
       <Services />

@@ -51,8 +51,9 @@ const ContactPage = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Contact — BlueVult Lighting"
-        description="Contact BlueVult Lighting for a free estimate."
+        title="Contact BlueVult Lighting | Permanent Lighting Estimate"
+        description="Request a free permanent lighting estimate in Central Texas. Talk with BlueVult about design, installation, and scheduling."
+        path="/contact"
       />
 
       <Navbar />
@@ -150,9 +151,7 @@ const ContactPage = () => {
                   className="mt-1 w-full rounded-md border px-3 py-2 bg-input"
                 >
                   <option>Permanent Lighting</option>
-                  <option>Fence Installation</option>
-                  <option>Turf Installation</option>
-                  <option>Landscape Work</option>
+                  <option>Permanent Lighting + Other Outdoor Work</option>
                   <option>Other</option>
                 </select>
               </label>

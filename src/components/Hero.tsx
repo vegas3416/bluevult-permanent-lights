@@ -34,8 +34,8 @@ const Hero = () => {
         </h1>
 
         <p className="mx-auto max-w-xl text-lg text-muted-foreground mb-10">
-          Professional permanent lighting, fencing, artificial turf, and landscape services —
-          designed to transform your property year-round.
+          Professional permanent LED lighting design and installation for Central Texas homes —
+          built for holiday impact and year-round curb appeal.
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
@@ -46,12 +46,12 @@ const Hero = () => {
             Free Estimate
           </Link>
 
-          <a
-            href="#services"
+          <Link
+            to="/services/permanent-lighting"
             className="rounded-md border border-border px-8 py-3 text-base font-semibold text-foreground transition-colors hover:bg-secondary"
           >
-            Our Services
-          </a>
+            Explore Permanent Lighting
+          </Link>
         </div>
       </div>
     </section>

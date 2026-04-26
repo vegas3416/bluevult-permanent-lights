@@ -1,54 +1,81 @@
 import { Helmet } from "react-helmet-async";
+import {
+  BUSINESS_NAME,
+  BUSINESS_PHONE,
+  CENTRAL_TEXAS_CITIES,
+  SITE_URL,
+} from "@/lib/seo/siteConfig";
 
 type SEOProps = {
   title?: string;
   description?: string;
-  url?: string;
+  path?: string;
   image?: string;
   siteName?: string;
+  noIndex?: boolean;
+  schema?: Record<string, unknown> | Array<Record<string, unknown>>;
 };
 
 const defaultImage = "/favicon.ico";
 
-export default function SEO({ title, description, url, image, siteName }: SEOProps) {
-  const fullTitle = title ? `${title}` : "BlueVult Lighting";
+export default function SEO({
+  title,
+  description,
+  path,
+  image,
+  siteName,
+  noIndex = false,
+  schema,
+}: SEOProps) {
+  const fullTitle = title ? `${title}` : "BlueVult Lighting | Permanent Lighting in Central Texas";
   const desc = description ||
-    "Professional permanent LED lighting, fencing, artificial turf, and landscape services by BlueVult.";
+    "Permanent outdoor LED lighting design and installation for homes in Central Texas.";
   const ogImage = image || defaultImage;
-  const ogUrl = url || typeof window !== "undefined" ? window.location.href : undefined;
+  const canonicalUrl = path
+    ? `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`
+    : typeof window !== "undefined"
+      ? `${SITE_URL}${window.location.pathname}`
+      : SITE_URL;
 
-  const jsonLd = {
+  const localBusinessSchema = {
     "@context": "https://schema.org",
-    "@type": "LocalBusiness",
-    name: siteName || "BlueVult Lighting",
-    url: ogUrl || "https://example.com",
-    telephone: "+1-512-461-1926",
+    "@type": "HomeAndConstructionBusiness",
+    name: siteName || BUSINESS_NAME,
+    url: SITE_URL,
+    telephone: BUSINESS_PHONE,
     description: desc,
-    address: {
-      "@type": "PostalAddress",
-      addressLocality: "",
-      addressRegion: "",
-      postalCode: "",
-      streetAddress: ""
-    }
+    email: "info@bluevultlighting.com",
+    areaServed: CENTRAL_TEXAS_CITIES.map((city) => ({
+      "@type": "City",
+      name: city,
+    })),
+    serviceType: "Permanent Outdoor LED Lighting Installation",
   };
+  const extraSchemas = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+  const jsonLdPayload = [localBusinessSchema, ...extraSchemas];
 
   return (
     <Helmet>
       <title>{fullTitle}</title>
       <meta name="description" content={desc} />
+      <link rel="canonical" href={canonicalUrl} />
+      <meta name="robots" content={noIndex ? "noindex,nofollow" : "index,follow"} />
 
       {/* Open Graph */}
       <meta property="og:title" content={fullTitle} />
       <meta property="og:description" content={desc} />
       <meta property="og:type" content="website" />
       <meta property="og:image" content={ogImage} />
-      {ogUrl && <meta property="og:url" content={ogUrl} />}
+      <meta property="og:url" content={canonicalUrl} />
+      <meta property="og:site_name" content={siteName || BUSINESS_NAME} />
 
       {/* Twitter */}
       <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={fullTitle} />
+      <meta name="twitter:description" content={desc} />
+      <meta name="twitter:image" content={ogImage} />
 
-      <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>
+      <script type="application/ld+json">{JSON.stringify(jsonLdPayload)}</script>
     </Helmet>
   );
 }

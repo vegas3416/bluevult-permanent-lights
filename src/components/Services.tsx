@@ -31,7 +31,7 @@ const Services = () => {
       <div className="container mx-auto px-4">
         <div className="text-center mb-16">
           <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary mb-3">What We Do</p>
-          <h2 className="text-4xl sm:text-5xl font-display text-gradient-silver">Our Services</h2>
+          <h2 className="text-4xl sm:text-5xl font-display text-gradient-silver">Permanent Lighting First</h2>
         </div>
 
         <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -60,9 +60,17 @@ const Services = () => {
           ))}
         </div>
 
+        <p className="mt-6 text-center text-sm text-muted-foreground">
+          Permanent lighting is our primary focus. Additional outdoor services are available based on project scope.
+        </p>
+
         {/* Showcase image */}
         <div className="mt-16 overflow-hidden rounded-xl border border-border">
-          <img src={outdoorImg} alt="Turf, fencing, and landscape work" className="w-full h-64 sm:h-80 object-cover" />
+          <img
+            src={outdoorImg}
+            alt="Permanent outdoor lighting showcase"
+            className="w-full h-64 sm:h-80 object-cover"
+          />
         </div>
       </div>
     </section>

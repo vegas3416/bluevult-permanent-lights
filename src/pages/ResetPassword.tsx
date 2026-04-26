@@ -168,6 +168,8 @@ const ResetPassword = () => {
       <SEO
         title="Reset password — BlueVult Lighting"
         description="Set a new password for your BlueVult account."
+        path="/reset-password"
+        noIndex
       />
       <Navbar />
 

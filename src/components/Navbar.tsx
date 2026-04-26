@@ -10,7 +10,8 @@ const Navbar = () => {
        <img src={logo} alt="BlueVult Lighting" className="h-16 w-auto object-contain" />
       </Link>
         <div className="hidden md:flex items-center gap-8 text-sm font-medium tracking-wide uppercase">
-          <a href="/#services" className="text-muted-foreground hover:text-primary transition-colors">Services</a>
+          <Link to="/services/permanent-lighting" className="text-muted-foreground hover:text-primary transition-colors">Permanent Lighting</Link>
+          <Link to="/service-areas" className="text-muted-foreground hover:text-primary transition-colors">Service Areas</Link>
           <Link to="/about" className="text-muted-foreground hover:text-primary transition-colors">About</Link>
           <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">Contact</Link>
         </div>
