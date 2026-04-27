@@ -1,74 +1,20 @@
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import SEO from "@/components/SEO";
-import { GALLERY_ITEMS, type GalleryItem } from "@/lib/gallery/galleryItems";
+import { useGalleryImages } from "@/lib/gallery/useGalleryImages";
 import {
   FACEBOOK_PAGE_URL,
   GOOGLE_BUSINESS_URL,
   GOOGLE_MAPS_EMBED_URL,
 } from "@/lib/seo/siteConfig";
-import { isSupabaseConfigured, supabase } from "@/lib/supabase";
-import { useQuery } from "@tanstack/react-query";
 import { ExternalLink, Facebook, X } from "lucide-react";
 import { Link } from "react-router-dom";
 
-type FbGalleryRow = {
-  fb_photo_id: string;
-  image_url: string;
-  width: number | null;
-  height: number | null;
-  created_time: string | null;
-};
-
-function formatPhotoCaption(createdTime: string | null) {
-  if (!createdTime) return "Project photo";
-  try {
-    return new Date(createdTime).toLocaleDateString(undefined, {
-      year: "numeric",
-      month: "short",
-      day: "numeric",
-    });
-  } catch {
-    return "Project photo";
-  }
-}
-
 const Gallery = () => {
   const [lightboxSrc, setLightboxSrc] = useState<string | null>(null);
-
-  const fbQuery = useQuery({
-    queryKey: ["gallery", "facebook"],
-    queryFn: async (): Promise<FbGalleryRow[]> => {
-      if (!supabase) return [];
-      const { data, error } = await supabase
-        .from("gallery_facebook_photos")
-        .select("fb_photo_id,image_url,width,height,created_time")
-        .order("created_time", { ascending: false });
-      if (error) throw error;
-      return (data ?? []) as FbGalleryRow[];
-    },
-    enabled: isSupabaseConfigured && supabase !== null,
-    staleTime: 60_000,
-  });
-
-  type DisplayRow = GalleryItem & { rowKey: string };
-
-  const displayItems: DisplayRow[] = useMemo(() => {
-    const rows = fbQuery.data;
-    if (rows && rows.length > 0) {
-      return rows.map((row) => ({
-        rowKey: row.fb_photo_id,
-        src: row.image_url,
-        alt: `BlueVult project photo ${formatPhotoCaption(row.created_time)}`,
-        caption: formatPhotoCaption(row.created_time),
-      }));
-    }
-    return GALLERY_ITEMS.map((item) => ({ ...item, rowKey: item.src }));
-  }, [fbQuery.data]);
-
-  const usingFacebook = Boolean(fbQuery.data && fbQuery.data.length > 0);
-  const galleryInitialLoad = Boolean(isSupabaseConfigured && fbQuery.isLoading);
+  const { items: displayItems, usingFacebook, initialLoad: galleryInitialLoad, isError } =
+    useGalleryImages();
 
   const closeLightbox = useCallback(() => setLightboxSrc(null), []);
 
@@ -155,7 +101,7 @@ const Gallery = () => {
           {galleryInitialLoad ? (
             <p className="text-center text-muted-foreground">Loading gallery…</p>
           ) : null}
-          {!galleryInitialLoad && fbQuery.isError && isSupabaseConfigured ? (
+          {!galleryInitialLoad && isError ? (
             <p className="mb-4 text-center text-sm text-amber-600 dark:text-amber-500">
               Could not load the live gallery; showing featured images instead.
             </p>

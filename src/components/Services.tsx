@@ -1,6 +1,7 @@
+import { useEffect, useState } from "react";
 import { Lightbulb, Fence, TreePine, Flower2 } from "lucide-react";
 import { Link } from "react-router-dom";
-import outdoorImg from "@/assets/services-outdoor.jpg";
+import { useGalleryImages } from "@/lib/gallery/useGalleryImages";
 
 const services = [
   {
@@ -27,6 +28,23 @@ const services = [
 ];
 
 const Services = () => {
+  const { items: galleryItems } = useGalleryImages();
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  useEffect(() => {
+    if (galleryItems.length <= 1) return;
+    const timer = window.setInterval(() => {
+      setActiveIndex((idx) => (idx + 1) % galleryItems.length);
+    }, 3500);
+    return () => window.clearInterval(timer);
+  }, [galleryItems.length]);
+
+  useEffect(() => {
+    if (activeIndex >= galleryItems.length) setActiveIndex(0);
+  }, [activeIndex, galleryItems.length]);
+
+  const activeSlide = galleryItems[activeIndex];
+
   return (
     <section id="services" className="py-24 relative">
       <div className="container mx-auto px-4">
@@ -65,14 +83,37 @@ const Services = () => {
           Permanent lighting is our primary focus. Additional outdoor services are available based on project scope.
         </p>
 
-        {/* Showcase image */}
-        <div className="mt-16 overflow-hidden rounded-xl border border-border">
-          <img
-            src={outdoorImg}
-            alt="Permanent outdoor lighting showcase"
-            className="w-full h-64 sm:h-80 object-cover"
-          />
-        </div>
+        {/* Showcase carousel */}
+        {activeSlide ? (
+          <div className="mt-16 overflow-hidden rounded-xl border border-border">
+            <Link to="/gallery" aria-label="Open full project gallery">
+              <img
+                key={activeSlide.rowKey}
+                src={activeSlide.src}
+                alt={activeSlide.alt}
+                className="h-64 w-full object-cover sm:h-80"
+                loading="lazy"
+                decoding="async"
+              />
+            </Link>
+          </div>
+        ) : null}
+
+        {galleryItems.length > 1 ? (
+          <div className="mt-3 flex items-center justify-center gap-2">
+            {galleryItems.slice(0, 8).map((item, idx) => (
+              <button
+                key={item.rowKey}
+                type="button"
+                onClick={() => setActiveIndex(idx)}
+                className={`h-2.5 w-2.5 rounded-full transition-all ${
+                  idx === activeIndex ? "bg-primary" : "bg-muted-foreground/40 hover:bg-primary/60"
+                }`}
+                aria-label={`Show gallery image ${idx + 1}`}
+              />
+            ))}
+          </div>
+        ) : null}
 
         <p className="mt-6 text-center">
           <Link
