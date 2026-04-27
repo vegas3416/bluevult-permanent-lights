@@ -10,7 +10,8 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "test": "vitest run",
-    "test:watch": "vitest"
+    "test:watch": "vitest",
+    "sync:facebook-gallery": "node scripts/sync-facebook-gallery.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
