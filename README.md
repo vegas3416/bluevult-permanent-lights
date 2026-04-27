@@ -117,3 +117,20 @@ Yes, you can!
 To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
 
 Read more here: [Setting up a custom domain](https://docs.lovable.dev/features/custom-domain#custom-domain)
+
+
+## Facebook gallery auto-sync
+
+This repo can automatically pull photos from your Facebook Page into the website gallery via Supabase.
+
+1. Supabase migration + function are included in this repo (`supabase/migrations/...gallery_facebook_photos.sql` and `supabase/functions/sync-facebook-gallery`).
+2. In Supabase Edge Function secrets, set:
+   - `FACEBOOK_PAGE_ACCESS_TOKEN` (long-lived Page token)
+   - `FACEBOOK_PAGE_ID` (optional, defaults to BlueVult page id)
+   - `GALLERY_SYNC_SECRET` (shared secret)
+3. In GitHub repo secrets, set:
+   - `SUPABASE_ANON_KEY`
+   - `GALLERY_SYNC_SECRET`
+4. Trigger `.github/workflows/facebook-gallery-sync.yml` manually once, then it runs daily on schedule.
+
+The public site reads from `public.gallery_facebook_photos` through Supabase with anon access enabled by RLS.
