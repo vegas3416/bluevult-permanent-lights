@@ -25,13 +25,23 @@ const passwordSchema = z
 
 type Phase = "loading" | "ready" | "invalid" | "success" | "noconfig";
 
-function readRecoverySignals() {
+/** Password reset, team invite, signup confirmation, etc. — all land here with tokens in the URL. */
+function readEmailAuthLinkSignals() {
   const hash = window.location.hash;
+  const hashParams = new URLSearchParams(hash.startsWith("#") ? hash.slice(1) : hash);
   const search = new URLSearchParams(window.location.search);
-  const hadImplicitRecovery = hash.includes("type=recovery");
-  const hadQueryRecovery = search.get("type") === "recovery";
+
+  const type = hashParams.get("type") ?? search.get("type");
+  const hasImplicitTokens = hashParams.has("access_token");
+  const hintedEmailAuth =
+    type === "recovery" ||
+    type === "invite" ||
+    type === "signup" ||
+    type === "magiclink" ||
+    hasImplicitTokens;
+
   const hadPkceCode = search.has("code");
-  return { hadImplicitRecovery, hadQueryRecovery, hadPkceCode };
+  return { type, hintedEmailAuth, hadPkceCode };
 }
 
 const ResetPassword = () => {
@@ -52,13 +62,19 @@ const ResetPassword = () => {
       return;
     }
 
-    const signals = readRecoverySignals();
-    const hintedRecovery = signals.hadImplicitRecovery || signals.hadQueryRecovery || signals.hadPkceCode;
+    const signals = readEmailAuthLinkSignals();
+    const hintedEmailAuth =
+      signals.hintedEmailAuth || signals.hadPkceCode;
 
     const {
       data: { subscription },
     } = supabase.auth.onAuthStateChange((event) => {
       if (event === "PASSWORD_RECOVERY") {
+        applyAllowReset();
+        return;
+      }
+      // Invites / email confirmations often establish a session as SIGNED_IN (not PASSWORD_RECOVERY).
+      if (event === "SIGNED_IN" && hintedEmailAuth) {
         applyAllowReset();
       }
     });
@@ -115,12 +131,12 @@ const ResetPassword = () => {
           return;
         }
 
-        if (session && (hintedRecovery || allowResetRef.current)) {
+        if (session && (hintedEmailAuth || allowResetRef.current)) {
           setPhase("ready");
           return;
         }
 
-        if (!session && hintedRecovery) {
+        if (!session && hintedEmailAuth) {
           safeSetPhase("invalid");
           return;
         }
@@ -166,8 +182,8 @@ const ResetPassword = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Reset password — BlueVult Lighting"
-        description="Set a new password for your BlueVult account."
+        title="Set password — BlueVult Lighting"
+        description="Set or reset your BlueVult account password."
         path="/reset-password"
         noIndex
       />
@@ -180,16 +196,17 @@ const ResetPassword = () => {
           </p>
           <Card>
             <CardHeader>
-              <CardTitle>Reset password</CardTitle>
+              <CardTitle>Set your password</CardTitle>
               <CardDescription>
-                Choose a new password. This page must be opened from the link in your reset email.
+                Open this page from the link in your email (password reset or team invitation). Then choose a
+                password below.
               </CardDescription>
             </CardHeader>
             <CardContent>
               {phase === "loading" && (
                 <div className="flex items-center gap-2 text-muted-foreground py-6 justify-center">
                   <Loader2 className="h-5 w-5 animate-spin" />
-                  <span>Verifying reset link…</span>
+                  <span>Verifying link…</span>
                 </div>
               )}
 
@@ -211,8 +228,8 @@ const ResetPassword = () => {
                   <AlertTitle>Link invalid or expired</AlertTitle>
                   <AlertDescription className="space-y-3">
                     <p>
-                      Request a new reset email from the app where you sign in, and open the new link in this
-                      browser.
+                      Request a new reset or ask your admin to resend the team invite, then open the new link
+                      in this browser.
                     </p>
                     <Button variant="outline" size="sm" asChild>
                       <Link to="/">Back to home</Link>
