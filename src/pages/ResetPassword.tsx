@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { z } from "zod";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
@@ -53,6 +53,17 @@ function readEmailAuthLinkSignals() {
 }
 
 const ResetPassword = () => {
+  const location = useLocation();
+  const isInvitePage = location.pathname === "/set-password";
+  const seoTitle = isInvitePage ? "Set account password — BlueVult Lighting" : "Set password — BlueVult Lighting";
+  const seoDescription = isInvitePage
+    ? "Accept your BlueVult team invitation and set your account password."
+    : "Set or reset your BlueVult account password.";
+  const seoPath = isInvitePage ? "/set-password" : "/reset-password";
+  const cardTitle = isInvitePage ? "Set your account password" : "Set your password";
+  const cardDescription = isInvitePage
+    ? "Open this page from your team invitation email, then choose your password to finish setup."
+    : "Open this page from the link in your email (password reset or team invitation). Then choose a password below.";
   const [phase, setPhase] = useState<Phase>("loading");
   const [password, setPassword] = useState("");
   const [confirm, setConfirm] = useState("");
@@ -203,9 +214,9 @@ const ResetPassword = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Set password — BlueVult Lighting"
-        description="Set or reset your BlueVult account password."
-        path="/reset-password"
+        title={seoTitle}
+        description={seoDescription}
+        path={seoPath}
         noIndex
       />
       <Navbar />
@@ -217,11 +228,8 @@ const ResetPassword = () => {
           </p>
           <Card>
             <CardHeader>
-              <CardTitle>Set your password</CardTitle>
-              <CardDescription>
-                Open this page from the link in your email (password reset or team invitation). Then choose a
-                password below.
-              </CardDescription>
+              <CardTitle>{cardTitle}</CardTitle>
+              <CardDescription>{cardDescription}</CardDescription>
             </CardHeader>
             <CardContent>
               {phase === "loading" && (
