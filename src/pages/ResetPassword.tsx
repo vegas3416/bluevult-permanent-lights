@@ -25,23 +25,31 @@ const passwordSchema = z
 
 type Phase = "loading" | "ready" | "invalid" | "success" | "noconfig";
 
+type SupportedEmailAuthType = "recovery" | "invite" | "signup" | "magiclink";
+
+function asSupportedEmailAuthType(raw: string | null): SupportedEmailAuthType | null {
+  if (raw === "recovery" || raw === "invite" || raw === "signup" || raw === "magiclink") {
+    return raw;
+  }
+  return null;
+}
+
 /** Password reset, team invite, signup confirmation, etc. — all land here with tokens in the URL. */
 function readEmailAuthLinkSignals() {
   const hash = window.location.hash;
   const hashParams = new URLSearchParams(hash.startsWith("#") ? hash.slice(1) : hash);
   const search = new URLSearchParams(window.location.search);
 
-  const type = hashParams.get("type") ?? search.get("type");
+  const type = asSupportedEmailAuthType(hashParams.get("type") ?? search.get("type"));
+  const tokenHash = search.get("token_hash") ?? hashParams.get("token_hash");
   const hasImplicitTokens = hashParams.has("access_token");
   const hintedEmailAuth =
-    type === "recovery" ||
-    type === "invite" ||
-    type === "signup" ||
-    type === "magiclink" ||
+    type !== null ||
+    Boolean(tokenHash) ||
     hasImplicitTokens;
 
   const hadPkceCode = search.has("code");
-  return { type, hintedEmailAuth, hadPkceCode };
+  return { type, tokenHash, hintedEmailAuth, hadPkceCode };
 }
 
 const ResetPassword = () => {
@@ -105,6 +113,19 @@ const ResetPassword = () => {
 
     (async () => {
       try {
+        if (signals.tokenHash && signals.type) {
+          const { error } = await supabase.auth.verifyOtp({
+            type: signals.type,
+            token_hash: signals.tokenHash,
+          });
+          if (cancelled) return;
+          if (error) {
+            console.error(error);
+            safeSetPhase("invalid");
+            return;
+          }
+        }
+
         if (signals.hadPkceCode) {
           const { error } = await supabase.auth.exchangeCodeForSession(window.location.href);
           if (cancelled) return;
