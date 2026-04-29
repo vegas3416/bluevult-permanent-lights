@@ -46,21 +46,25 @@ const Services = () => {
   const activeSlide = galleryItems[activeIndex];
 
   return (
-    <section id="services" className="py-24 relative">
-      <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-primary mb-3">What We Do</p>
-          <h2 className="text-4xl sm:text-5xl font-display text-gradient-silver">Permanent Lighting First</h2>
+    <section id="services" className="relative py-20 md:py-28">
+      <div className="pointer-events-none absolute inset-0 bg-gradient-to-b from-transparent via-primary/[0.03] to-transparent" aria-hidden />
+      <div className="container relative mx-auto px-4">
+        <div className="mb-14 text-center md:mb-16">
+          <p className="mb-2 text-xs font-bold uppercase tracking-[0.28em] text-primary">What we do</p>
+          <h2 className="text-4xl sm:text-5xl md:text-6xl font-display text-gradient-vibrant">Permanent lighting first</h2>
+          <p className="mx-auto mt-4 max-w-2xl text-muted-foreground md:text-lg">
+            Roofline LED is our specialty; we bundle other outdoor upgrades when it makes sense for your property.
+          </p>
         </div>
 
-        <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid gap-5 md:grid-cols-2 lg:grid-cols-4">
           {services.map((service) => (
             <div
               key={service.title}
-              className={`group rounded-lg border p-6 transition-all duration-300 hover:-translate-y-1 ${
+              className={`group rounded-2xl border p-6 transition-all duration-300 hover:-translate-y-1 ${
                 service.featured
-                  ? "border-primary/40 bg-primary/5 glow-blue"
-                  : "border-border bg-card hover:border-primary/20"
+                  ? "border-primary/50 bg-gradient-to-b from-primary/12 to-primary/5 shadow-lg shadow-primary/10 glow-blue"
+                  : "border-border bg-card/90 hover:border-primary/35 hover:shadow-lg hover:shadow-black/20"
               }`}
             >
               <service.icon
@@ -85,13 +89,13 @@ const Services = () => {
 
         {/* Showcase carousel */}
         {activeSlide ? (
-          <div className="mt-16 overflow-hidden rounded-xl border border-border">
+          <div className="mt-16 overflow-hidden rounded-2xl border border-primary/25 shadow-xl shadow-black/30 ring-1 ring-primary/10">
             <Link to="/gallery" aria-label="Open full project gallery">
               <img
                 key={activeSlide.rowKey}
                 src={activeSlide.src}
                 alt={activeSlide.alt}
-                className="h-64 w-full object-cover sm:h-80"
+                className="h-64 w-full object-cover transition-transform duration-700 hover:scale-[1.02] sm:h-80 md:h-96"
                 loading="lazy"
                 decoding="async"
               />

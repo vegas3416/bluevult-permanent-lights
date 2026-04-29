@@ -3,6 +3,11 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { Mail, Phone, MapPin } from "lucide-react";
 import SEO from "@/components/SEO";
+import {
+  BUSINESS_EMAIL,
+  BUSINESS_PHONE_DISPLAY,
+  BUSINESS_PHONE_TEL,
+} from "@/lib/seo/siteConfig";
 
 const ContactPage = () => {
   const [submitted, setSubmitted] = useState(false);
@@ -64,7 +69,7 @@ const ContactPage = () => {
         alert(
           (data.message || `Could not send (${response.status}).`) +
             hint +
-            " You can also call (512) 461-1926 or email info@bluevultlighting.com."
+            ` You can also call ${BUSINESS_PHONE_DISPLAY} or email ${BUSINESS_EMAIL}.`
         );
       }
     } catch (error) {
@@ -100,20 +105,14 @@ const ContactPage = () => {
           </p>
 
           <div className="mb-10 flex flex-col sm:flex-row items-center justify-center gap-6">
-            <a
-              href="tel:+15124611926"
-              className="flex items-center gap-3 hover:text-primary"
-            >
+            <a href={BUSINESS_PHONE_TEL} className="flex items-center gap-3 hover:text-primary">
               <Phone className="h-5 w-5 text-primary" />
-              <span>(512) 461-1926</span>
+              <span>{BUSINESS_PHONE_DISPLAY}</span>
             </a>
 
-            <a
-              href="mailto:info@bluevultlighting.com"
-              className="flex items-center gap-3 hover:text-primary"
-            >
+            <a href={`mailto:${BUSINESS_EMAIL}`} className="flex items-center gap-3 hover:text-primary">
               <Mail className="h-5 w-5 text-primary" />
-              <span>info@bluevultlighting.com</span>
+              <span>{BUSINESS_EMAIL}</span>
             </a>
 
             <div className="flex items-center gap-3 text-muted-foreground">

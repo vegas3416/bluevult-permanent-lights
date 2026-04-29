@@ -1,5 +1,6 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
+import HomeMarketing from "@/components/HomeMarketing";
 import Services from "@/components/Services";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
@@ -14,6 +15,7 @@ const Index = () => {
       />
       <Navbar />
       <Hero />
+      <HomeMarketing />
       <Services />
       <Footer />
     </div>

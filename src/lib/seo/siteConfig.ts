@@ -5,6 +5,9 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-image.png`;
 
 export const BUSINESS_NAME = "BlueVult Lighting";
 export const BUSINESS_PHONE = "+1-512-461-1926";
+/** Display and dial links for UI (matches schema telephone). */
+export const BUSINESS_PHONE_DISPLAY = "(512) 461-1926";
+export const BUSINESS_PHONE_TEL = "tel:+15124611926";
 export const BUSINESS_EMAIL = "info@bluevultlighting.com";
 
 /** Official Google Business / profile link (share link is fine). Env overrides when set. */

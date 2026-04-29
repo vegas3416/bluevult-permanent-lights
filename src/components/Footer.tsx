@@ -1,13 +1,40 @@
 import logo from "@/assets/bluevult-logo.png";
-import { FACEBOOK_PAGE_URL, GOOGLE_BUSINESS_URL } from "@/lib/seo/siteConfig";
+import {
+  BUSINESS_PHONE_DISPLAY,
+  BUSINESS_PHONE_TEL,
+  FACEBOOK_PAGE_URL,
+  GOOGLE_BUSINESS_URL,
+} from "@/lib/seo/siteConfig";
 import { Link } from "react-router-dom";
-import { ExternalLink, Facebook } from "lucide-react";
+import { ExternalLink, Facebook, Phone } from "lucide-react";
 
 const Footer = () => {
   return (
-    <footer className="border-t border-border py-10">
-      <div className="container mx-auto flex flex-col items-center gap-6 px-4">
+    <footer className="relative border-t border-border/80 bg-gradient-to-b from-background via-card/20 to-background pt-12 pb-10">
+      <div
+        className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-primary/50 to-transparent"
+        aria-hidden
+      />
+      <div className="container mx-auto flex flex-col items-center gap-8 px-4">
+        <div className="flex w-full max-w-lg flex-col items-center gap-3 rounded-2xl border border-primary/25 bg-primary/5 px-6 py-5 text-center backdrop-blur-sm sm:flex-row sm:justify-center sm:text-left">
+          <Phone className="h-8 w-8 shrink-0 text-primary" aria-hidden />
+          <div>
+            <p className="text-xs font-bold uppercase tracking-[0.2em] text-primary">Ready when you are</p>
+            <a href={BUSINESS_PHONE_TEL} className="mt-1 block text-xl font-bold text-foreground hover:text-primary">
+              {BUSINESS_PHONE_DISPLAY}
+            </a>
+            <Link to="/contact" className="mt-2 inline-block text-sm font-semibold text-muted-foreground underline-offset-4 hover:text-primary hover:underline">
+              Or send a message — free estimate
+            </Link>
+          </div>
+        </div>
         <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-sm font-medium">
+          <Link to="/contact" className="text-muted-foreground hover:text-primary transition-colors">
+            Contact
+          </Link>
+          <Link to="/faq" className="text-muted-foreground hover:text-primary transition-colors">
+            FAQ & pricing
+          </Link>
           <Link to="/gallery" className="text-muted-foreground hover:text-primary transition-colors">
             Gallery
           </Link>
