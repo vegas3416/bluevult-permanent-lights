@@ -6,15 +6,15 @@ import {
   permanentLightingMicroPath,
   serviceAreaCityBySlug,
   SITE_URL,
+  type ServiceAreaCity,
 } from "@/lib/seo/siteConfig";
 import { nearbyCitiesResolved } from "@/lib/seo/cityNearby";
 import { Link, useParams } from "react-router-dom";
 import NotFound from "./NotFound";
 
-const CityPermanentLighting = () => {
-  const { city, citySlug } = useParams<{ city?: string; citySlug?: string }>();
-  const rawSlug = city ?? citySlug;
-  const cityEntry = serviceAreaCityBySlug(rawSlug);
+const CityHolidayLighting = () => {
+  const { citySlug } = useParams<{ citySlug: string }>();
+  const cityEntry = serviceAreaCityBySlug(citySlug);
 
   if (!cityEntry) {
     return <NotFound />;
@@ -22,11 +22,11 @@ const CityPermanentLighting = () => {
 
   const cityName = cityEntry.name;
   const slug = cityEntry.slug;
-  const canonicalPath = permanentLightingMicroPath(slug);
+  const canonicalPath = holidayLightingMicroPath(slug);
   const nearbyCities = nearbyCitiesResolved(slug);
 
-  const pageTitle = `Permanent Lighting in ${cityName}, TX | BlueVult`;
-  const pageDescription = `Custom permanent architectural LED roofline lighting in ${cityName}, Texas. BlueVult installs custom house lighting with holiday color programs, app control, and professional install—no ladder seasonal hang-ups.`;
+  const pageTitle = `Holiday Lighting & Christmas Roofline Lights in ${cityName}, TX | BlueVult`;
+  const pageDescription = `Holiday lighting and permanent Christmas-style roofline LEDs in ${cityName}, Texas — no ladders, app-controlled colors for Halloween, Thanksgiving, Christmas, and more. Free estimate from BlueVult.`;
 
   return (
     <div className="min-h-screen bg-background">
@@ -37,8 +37,8 @@ const CityPermanentLighting = () => {
         schema={{
           "@context": "https://schema.org",
           "@type": "Service",
-          name: `Permanent Lighting in ${cityName}, TX`,
-          serviceType: "Permanent Outdoor LED Lighting Installation",
+          name: `Holiday Roofline Lighting in ${cityName}, TX`,
+          serviceType: "Holiday and Permanent LED Roofline Lighting Installation",
           areaServed: {
             "@type": "City",
             name: cityName,
@@ -53,80 +53,86 @@ const CityPermanentLighting = () => {
       <Navbar />
 
       <main className="container mx-auto px-6 pb-24 pt-28 md:pt-32">
-        <section className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl border border-primary/15 bg-gradient-to-br from-card/80 via-background to-primary/5 px-6 py-10 shadow-xl shadow-black/20 sm:px-10 sm:py-12">
+        <section className="relative mx-auto max-w-4xl overflow-hidden rounded-3xl border border-primary/20 bg-gradient-to-br from-card/80 via-background to-[hsl(265_40%_12%/0.35)] px-6 py-10 shadow-xl shadow-black/20 sm:px-10 sm:py-12">
           <div
-            className="pointer-events-none absolute -right-16 -top-16 h-48 w-48 rounded-full bg-primary/15 blur-3xl"
+            className="pointer-events-none absolute -left-12 -top-12 h-40 w-40 rounded-full bg-[hsl(330_60%_40%/0.2)] blur-3xl"
             aria-hidden
           />
           <div className="relative">
-            <p className="mb-2 text-xs font-bold uppercase tracking-[0.28em] text-primary">{cityName}, Texas</p>
+            <p className="mb-2 text-xs font-bold uppercase tracking-[0.28em] text-primary">
+              Holiday & seasonal · {cityName}, Texas
+            </p>
             <h1 className="mb-5 text-4xl font-display text-gradient-vibrant sm:text-5xl md:text-6xl leading-[0.95]">
-              Permanent lighting in {cityName}, Texas
+              Holiday lighting & Christmas roofline lights in {cityName}
             </h1>
             <p className="mb-6 text-lg text-muted-foreground md:text-xl">
-              BlueVult installs permanent LED roofline lighting systems for homeowners in {cityName}. Get clean daytime
-              appearance, strong nighttime curb appeal, and app-controlled color schedules for holidays, game days, and
-              everyday use.
+              Homeowners in {cityName} search for <strong className="text-foreground">holiday lighting</strong>,{" "}
+              <strong className="text-foreground">Christmas lights</strong>, and{" "}
+              <strong className="text-foreground">roofline installs</strong> — BlueVult installs{" "}
+              <strong className="text-foreground">permanent LED channels</strong> so you get bright seasonal displays
+              without annual hang-and-take-down, tangled strings, or risky ladder work.
             </p>
 
             <div className="grid gap-6 sm:grid-cols-2">
               <div className="rounded-2xl border border-border bg-card/70 p-5 backdrop-blur-sm">
-                <h2 className="mb-2 text-xl font-semibold">Why homeowners in {cityName} choose permanent lighting</h2>
+                <h2 className="mb-2 text-xl font-semibold">Why this beats traditional holiday lights in {cityName}</h2>
                 <ul className="list-disc pl-5 text-muted-foreground">
-                  <li>No seasonal hanging or ladder work</li>
-                  <li>Year-round curb appeal and security accent lighting</li>
-                  <li>Custom color scenes controlled from your phone</li>
-                  <li>Professional installation designed for your roofline</li>
+                  <li>Presets for Christmas, Halloween, Fourth of July, game day, and more</li>
+                  <li>Millions of colors and motion effects from your phone</li>
+                  <li>Low-profile hardware that looks intentional year-round</li>
+                  <li>Professional install sized to your roofline — not a one-size kit</li>
                 </ul>
               </div>
               <div className="rounded-2xl border border-border bg-card/70 p-5 backdrop-blur-sm">
-                <h2 className="mb-2 text-xl font-semibold">Our process</h2>
+                <h2 className="mb-2 text-xl font-semibold">Popular seasons in {cityName}</h2>
                 <ul className="list-disc pl-5 text-muted-foreground">
-                  <li>On-site design consultation and estimate</li>
-                  <li>Clean, concealed mounting installation</li>
-                  <li>App setup, scene presets, and schedule walkthrough</li>
-                  <li>Support after install for seasonal programming</li>
+                  <li>Christmas & winter holidays — classic warm white or full color</li>
+                  <li>Halloween — oranges, purples, and spooky chase effects</li>
+                  <li>Independence Day — red, white, and blue scenes</li>
+                  <li>Valentine’s, Easter, local celebrations — swap looks in minutes</li>
                 </ul>
               </div>
             </div>
 
             <div className="mt-8 rounded-2xl border border-primary/15 bg-primary/5 p-6">
-              <h2 className="mb-3 text-2xl font-semibold">FAQ: Permanent lighting in {cityName}</h2>
+              <h2 className="mb-3 text-2xl font-semibold">FAQ: Holiday lighting in {cityName}</h2>
               <div className="space-y-4 text-muted-foreground">
                 <div>
-                  <h3 className="font-semibold text-foreground">Can permanent lighting be used beyond holidays?</h3>
+                  <h3 className="font-semibold text-foreground">Is this the same as string lights from the store?</h3>
                   <p>
-                    Yes. Most homeowners in {cityName} use permanent LEDs year-round for accent lighting, events, and
-                    safer nighttime visibility.
+                    No — we install a permanent, concealed-track LED system made for your roofline. It replaces
+                    throwaway string lights for most homeowners who want a polished look and less maintenance.
                   </p>
                 </div>
                 <div>
-                  <h3 className="font-semibold text-foreground">Does the system require frequent maintenance?</h3>
+                  <h3 className="font-semibold text-foreground">Can I still use warm white after the holidays?</h3>
                   <p>
-                    No. Systems are designed for low maintenance with durable components and professional installation.
+                    Yes. After Christmas or Halloween, switch to subtle architectural white or soft accent colors for
+                    everyday curb appeal in {cityName}.
                   </p>
                 </div>
               </div>
             </div>
 
             <p className="mt-8 text-sm text-muted-foreground">
-              Searching for <strong className="text-foreground">holiday lighting</strong>,{" "}
-              <strong className="text-foreground">Christmas lights</strong>, or{" "}
-              <strong className="text-foreground">roofline holiday installs</strong> in {cityName}? See our{" "}
-              <Link to={holidayLightingMicroPath(slug)} className="font-semibold text-primary underline-offset-4 hover:underline">
-                holiday lighting page for {cityName}
-              </Link>{" "}
-              — same permanent LED system, positioned for seasonal searches.
+              Prefer the <strong className="text-foreground">year-round “permanent lighting”</strong> angle? View our{" "}
+              <Link
+                to={permanentLightingMicroPath(slug)}
+                className="font-semibold text-primary underline-offset-4 hover:underline"
+              >
+                permanent roofline lighting page for {cityName}
+              </Link>
+              .
             </p>
 
             {nearbyCities.length > 0 ? (
               <div className="mt-8">
-                <h2 className="mb-3 text-xl font-semibold">Nearby areas we serve</h2>
+                <h2 className="mb-3 text-xl font-semibold">Nearby holiday lighting pages</h2>
                 <div className="flex flex-wrap gap-2">
                   {nearbyCities.map((nearby) => (
                     <Link
                       key={nearby.slug}
-                      to={permanentLightingMicroPath(nearby.slug)}
+                      to={holidayLightingMicroPath(nearby.slug)}
                       className="rounded-full border border-border px-3 py-1.5 text-sm font-medium transition-colors hover:border-primary hover:text-primary"
                     >
                       {nearby.name}
@@ -141,7 +147,7 @@ const CityPermanentLighting = () => {
                 to="/contact"
                 className="btn-vibrant-primary inline-flex items-center justify-center rounded-xl px-6 py-3 text-center text-base font-bold text-primary-foreground"
               >
-                Get a free estimate in {cityName}
+                Free holiday lighting estimate — {cityName}
               </Link>
               <Link
                 to="/faq"
@@ -165,4 +171,4 @@ const CityPermanentLighting = () => {
   );
 };
 
-export default CityPermanentLighting;
+export default CityHolidayLighting;

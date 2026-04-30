@@ -28,9 +28,9 @@ export default function SEO({
   noIndex = false,
   schema,
 }: SEOProps) {
-  const fullTitle = title ? `${title}` : "BlueVult Lighting | Permanent Lighting in Central Texas";
+  const fullTitle = title ? `${title}` : "BlueVult Lighting | Permanent & Architectural Roofline LED";
   const desc = description ||
-    "Permanent outdoor LED lighting design and installation for homes in Central Texas.";
+    "Permanent architectural LED roofline lighting and custom house lighting installation in Central Texas—holiday color programs, app control, professional install.";
   const ogImage = image || defaultImage;
   const canonicalUrl = path
     ? `${SITE_URL}${path.startsWith("/") ? path : `/${path}`}`

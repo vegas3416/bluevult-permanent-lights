@@ -9,8 +9,8 @@ const Index = () => {
   return (
     <div className="min-h-screen bg-background">
       <SEO
-        title="Permanent Lighting in Central Texas | BlueVult Lighting"
-        description="Permanent outdoor LED lighting installation in Central Texas. BlueVult delivers clean roofline lighting systems with year-round app control."
+        title="Permanent Lighting & LED Roofline Install | BlueVult | Central TX"
+        description="BlueVult installs permanent architectural LED roofline lighting in Central Texas: custom house lighting, holiday color programs, and everyday curb appeal—professional install, app control, no ladders."
         path="/"
       />
       <Navbar />

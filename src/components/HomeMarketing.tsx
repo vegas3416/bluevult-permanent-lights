@@ -44,7 +44,7 @@ const benefits = [
   {
     icon: Smartphone,
     title: "Control from your phone",
-    body: "Schedules, presets, and instant changes without ladders, clips, or tangled strings of lights.",
+    body: "Schedules, presets, and instant changes to your custom roofline lights—no ladders, clips, or tangled seasonal strings.",
   },
 ];
 

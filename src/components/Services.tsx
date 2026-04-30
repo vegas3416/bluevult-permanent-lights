@@ -7,7 +7,8 @@ const services = [
   {
     icon: Lightbulb,
     title: "Permanent Lighting",
-    description: "Year-round programmable LED lighting installed along your roofline. Holiday colors, everyday ambiance — no ladders, no hassle.",
+    description:
+      "Year-round permanent LED roofline and architectural lighting installed once. Holiday color programs, everyday ambiance, custom placement — no ladders, no seasonal takedown.",
     featured: true,
   },
   {

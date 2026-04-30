@@ -70,3 +70,21 @@ export const SERVICE_AREA_CITIES: ServiceAreaCity[] = CENTRAL_TEXAS_CITIES.map((
   return { name, slug, featured };
 });
 
+/**
+ * SEO-focused city landing path. Uses a slash before the slug so React Router
+ * can match `/:citySlug` (hyphenated single segments like `/permanent-lighting-:citySlug` do not).
+ */
+export function permanentLightingMicroPath(slug: string): string {
+  return `/permanent-lighting/${slug}`;
+}
+
+/** City landing for holiday / seasonal roofline search intent. */
+export function holidayLightingMicroPath(slug: string): string {
+  return `/holiday-lighting/${slug}`;
+}
+
+export function serviceAreaCityBySlug(slug: string | undefined): ServiceAreaCity | undefined {
+  if (!slug) return undefined;
+  return SERVICE_AREA_CITIES.find((c) => c.slug === slug);
+}
+

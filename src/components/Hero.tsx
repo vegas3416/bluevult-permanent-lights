@@ -19,7 +19,11 @@ const Hero = () => {
       />
 
       <div className="absolute inset-0">
-        <img src={heroImg} alt="Permanent home lighting" className="h-full w-full object-cover scale-105" />
+        <img
+          src={heroImg}
+          alt="Architectural LED roofline and permanent exterior lighting on a Central Texas home"
+          className="h-full w-full object-cover scale-105"
+        />
         <div className="absolute inset-0 bg-hero-vignette" />
         <div className="absolute inset-0 bg-gradient-to-b from-background/35 via-background/45 to-background" />
       </div>
@@ -44,8 +48,8 @@ const Hero = () => {
         </h1>
 
         <p className="mx-auto max-w-2xl text-base text-foreground/90 sm:text-lg md:text-xl font-medium leading-snug mb-8 md:mb-10">
-          Holidays, game days, and everyday curb appeal — custom LED along your roofline, app-controlled, with no
-          ladders and no tangled strings.
+          Holidays, game days, and everyday curb appeal — custom house lighting along your roofline, app-controlled LED
+          architectural accents, with no ladders and no tangled strings.
         </p>
 
         <div className="flex flex-col items-stretch justify-center gap-3 sm:flex-row sm:items-center sm:justify-center sm:gap-4">

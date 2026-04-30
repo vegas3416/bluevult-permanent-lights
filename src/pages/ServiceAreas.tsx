@@ -1,7 +1,11 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import SEO from "@/components/SEO";
-import { SERVICE_AREA_CITIES } from "@/lib/seo/siteConfig";
+import {
+  holidayLightingMicroPath,
+  permanentLightingMicroPath,
+  SERVICE_AREA_CITIES,
+} from "@/lib/seo/siteConfig";
 import { Link } from "react-router-dom";
 
 const featuredCities = SERVICE_AREA_CITIES.filter((city) => city.featured);
@@ -12,7 +16,7 @@ const ServiceAreas = () => {
     <div className="min-h-screen bg-background">
       <SEO
         title="Permanent Lighting Service Areas | Central Texas | BlueVult"
-        description="See where BlueVult installs permanent outdoor LED lighting in Central Texas, including Austin, Round Rock, Pflugerville, Cedar Park, and Leander."
+        description="BlueVult installs permanent and holiday roofline LED lighting across Central Texas. Browse city pages for permanent lighting and holiday lighting keywords in your area."
         path="/service-areas"
       />
       <Navbar />
@@ -33,7 +37,7 @@ const ServiceAreas = () => {
             {featuredCities.map((city) => (
               <Link
                 key={city.slug}
-                to={`/service-areas/${city.slug}/permanent-lighting`}
+                to={permanentLightingMicroPath(city.slug)}
                 className="rounded-lg border border-primary/30 bg-primary/5 px-4 py-3 font-semibold hover:border-primary"
               >
                 Permanent Lighting in {city.name}
@@ -44,9 +48,30 @@ const ServiceAreas = () => {
           <h2 className="mb-4 text-2xl font-semibold">All Central Texas Areas We Serve</h2>
           <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
             {remainingCities.map((city) => (
-              <p key={city.slug} className="rounded-md border border-border px-4 py-3 text-muted-foreground">
-                {city.name}
-              </p>
+              <Link
+                key={city.slug}
+                to={permanentLightingMicroPath(city.slug)}
+                className="rounded-md border border-border px-4 py-3 font-medium text-muted-foreground transition-colors hover:border-primary hover:text-primary"
+              >
+                Permanent lighting — {city.name}
+              </Link>
+            ))}
+          </div>
+
+          <h2 className="mb-3 mt-14 text-2xl font-semibold">Holiday & Christmas roofline lighting (by city)</h2>
+          <p className="mb-4 text-sm text-muted-foreground">
+            Separate landing pages tuned for searches like “holiday lighting,” “Christmas lights,” and “roofline
+            install” — each city links to the same professional install offering.
+          </p>
+          <div className="mb-10 grid gap-2 sm:grid-cols-2 lg:grid-cols-3">
+            {SERVICE_AREA_CITIES.map((city) => (
+              <Link
+                key={`holiday-${city.slug}`}
+                to={holidayLightingMicroPath(city.slug)}
+                className="rounded-md border border-border/80 bg-card/40 px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:border-primary/50 hover:text-primary"
+              >
+                Holiday lighting — {city.name}
+              </Link>
             ))}
           </div>
 
