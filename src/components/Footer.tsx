@@ -1,4 +1,5 @@
 import logo from "@/assets/bluevult-logo.png";
+import { CertifiedWattsBadge } from "@/components/CertifiedWattsBadge";
 import {
   BUSINESS_PHONE_DISPLAY,
   BUSINESS_PHONE_TEL,
@@ -61,9 +62,13 @@ const Footer = () => {
             </a>
           ) : null}
         </div>
-        <div className="flex w-full flex-col items-center justify-between gap-4 sm:flex-row">
-          <img src={logo} alt="BlueVult Lighting" className="h-10 w-auto opacity-70" />
-          <p className="text-sm text-muted-foreground">
+        <div className="flex w-full flex-col items-center justify-between gap-6 sm:flex-row sm:items-center">
+          <div className="flex flex-col items-center gap-4 sm:flex-row sm:items-center sm:gap-6">
+            <img src={logo} alt="BlueVult Lighting" className="h-10 w-auto opacity-70" />
+            <div className="h-px w-full max-w-[12rem] bg-border/80 sm:hidden" aria-hidden />
+            <CertifiedWattsBadge size="sm" className="opacity-95" />
+          </div>
+          <p className="text-center text-sm text-muted-foreground sm:text-right">
             © {new Date().getFullYear()} BlueVult Lighting. All rights reserved.
           </p>
         </div>

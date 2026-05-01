@@ -9,6 +9,7 @@ import {
   SunMedium,
 } from "lucide-react";
 import { Link } from "react-router-dom";
+import { CertifiedWattsTrustSection } from "@/components/CertifiedWattsTrustSection";
 
 const OCCASIONS = [
   "Christmas",
@@ -79,8 +80,10 @@ const HomeMarketing = () => {
 
   return (
     <>
+      <CertifiedWattsTrustSection context="home" />
+
       {/* Occasion marquee — roofline “every celebration” energy */}
-      <section className="relative border-y border-primary/15 bg-background py-5 overflow-hidden">
+      <section className="relative border-b border-primary/15 bg-background py-5 overflow-hidden">
         <div
           className="pointer-events-none absolute inset-0 opacity-[0.35]"
           style={{

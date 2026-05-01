@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import Navbar from "@/components/Navbar";
 import SEO from "@/components/SEO";
+import { CertifiedWattsBadge } from "@/components/CertifiedWattsBadge";
 import { Link } from "react-router-dom";
 
 const PermanentLightingService = () => {
@@ -92,6 +93,14 @@ const PermanentLightingService = () => {
                   <li>Long-term curb appeal across seasons</li>
                 </ul>
               </div>
+            </div>
+
+            <div className="mt-10 flex flex-col items-center gap-3 rounded-2xl border border-border/80 bg-card/30 px-5 py-5 sm:flex-row sm:justify-center sm:gap-6">
+              <CertifiedWattsBadge size="sm" />
+              <p className="max-w-md text-center text-sm text-muted-foreground sm:text-left">
+                Installed to Certified Watts standards — so your permanent LED system is backed by recognized
+                product and installation quality.
+              </p>
             </div>
 
             <p className="mt-10 text-center text-sm text-muted-foreground sm:text-left">

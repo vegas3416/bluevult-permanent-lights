@@ -47,7 +47,7 @@ const Hero = () => {
           <span className="text-gradient-vibrant drop-shadow-md">occasion in color</span>
         </h1>
 
-        <p className="mx-auto max-w-2xl text-base text-foreground/90 sm:text-lg md:text-xl font-medium leading-snug mb-8 md:mb-10">
+        <p className="mx-auto mb-8 max-w-2xl text-center text-base font-medium leading-snug text-foreground/90 sm:text-lg md:mb-10 md:text-xl">
           Holidays, game days, and everyday curb appeal — custom house lighting along your roofline, app-controlled LED
           architectural accents, with no ladders and no tangled strings.
         </p>

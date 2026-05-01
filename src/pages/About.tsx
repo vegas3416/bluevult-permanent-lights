@@ -1,6 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import SEO from "@/components/SEO";
+import { CertifiedWattsTrustSection } from "@/components/CertifiedWattsTrustSection";
 
 const About = () => {
   return (
@@ -25,7 +26,10 @@ const About = () => {
             installation backed by clear communication. We serve residential properties and small
             commercial sites in the greater area.
           </p>
-          <div className="text-left mt-8">
+
+          <CertifiedWattsTrustSection context="about" />
+
+          <div className="text-left mt-10">
             <h3 className="font-semibold mb-2">Our approach</h3>
             <ul className="list-disc pl-5 text-muted-foreground">
               <li>Site-first design that highlights your landscape and architecture</li>

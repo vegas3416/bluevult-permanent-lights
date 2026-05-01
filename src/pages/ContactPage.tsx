@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import { CertifiedWattsBadge } from "@/components/CertifiedWattsBadge";
 import { Mail, Phone, MapPin } from "lucide-react";
 import SEO from "@/components/SEO";
 import {
@@ -119,6 +120,13 @@ const ContactPage = () => {
               <MapPin className="h-5 w-5 text-primary" />
               <span>Serving Central Texas</span>
             </div>
+          </div>
+
+          <div className="mx-auto mb-10 flex max-w-md flex-col items-center gap-3 rounded-2xl border border-primary/20 bg-card/50 px-5 py-5 backdrop-blur-sm">
+            <CertifiedWattsBadge size="md" />
+            <p className="text-center text-xs leading-relaxed text-muted-foreground sm:text-sm">
+              Certified Watts lighting professional — trusted components and installation standards for your project.
+            </p>
           </div>
 
           {!submitted ? (
